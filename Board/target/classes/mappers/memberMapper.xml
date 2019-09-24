@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mapper.member">
+	<insert id="insert">
+		insert into tbl_member (id, name, age) values (#{id},#{name},#{age})
+	</insert>
+	
+	<select id="idcheck" resultType="kr.co.domain.MemberVO">
+		select * from tbl_member where id = #{id}
+	</select>
+	
+	<select id="list" resultType="kr.co.domain.MemberVO">
+		select * from tbl_member
+	</select>
+	
+	<select id="read" resultType="kr.co.domain.MemberVO">
+		select * from tbl_member where id = #{id}
+	</select>
+	
+	<update id="update">
+		update tbl_member set name=#{name}, age=#{age} where id = #{id}
+	</update>
+	
+	
+	<delete id="del">
+		delete from tbl_member where id = #{id}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

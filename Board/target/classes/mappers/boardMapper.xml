@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mapper.board">
+
+	<delete id="deleteAttach">
+		delete from tbl_attach where bno = #{bno} and filename = #{filename}
+	</delete>
+
+	<delete id="clearAttach">
+		delete from tbl_attach where bno = #{bno}
+	</delete>
+
+	<select id="getAttach" resultType="string">
+		select filename from tbl_attach where bno = #{bno}
+	</select>
+
+	<insert id="addAttch">
+		insert into tbl_attach(id, bno, filename) 
+						values (seq_attach.nextval, #{bno}, #{filename})
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select seq_attach.currval from dual
+		</selectKey>
+	
+	</insert>
+
+	<insert id="create">
+		insert into tbl_board (bno, title, content, writer) 
+		values (seq_board.nextval, #{title}, #{content}, #{writer})
+		<selectKey keyProperty="bno" resultType="Integer" order="AFTER">
+			select seq_board.currval from dual
+		</selectKey>
+	</insert>
+	
+	<select id="listall" resultType="kr.co.domain.BoardVO">
+		select * from tbl_board order by bno desc
+	</select>
+	
+	<select id="read" resultType="kr.co.domain.BoardVO">
+		select * from tbl_board where bno = #{bno}
+	</select>
+	
+	<update id="increaseviewcnt">
+		update tbl_board set viewcnt = viewcnt +1 where bno = #{bno}
+	</update>
+	
+	<delete id="del">
+		delete from tbl_board where bno = #{bno}
+	</delete>
+	
+	<select id="modifyUI" resultType="kr.co.domain.BoardVO">
+		select * from tbl_board where bno = #{bno}
+	</select>
+	
+	<update id="modify">
+		update tbl_board set writer=#{writer}, title=#{title}, content=#{content}, 
+		updatedate=sysdate where bno = #{bno}
+	</update>
+	
+	<select id="getAmount" resultType="Integer">
+		select count(bno) from tbl_board
+	</select>
+	
+	<select id="list" resultType="kr.co.domain.BoardVO">
+		<![CDATA[
+		select * from
+		(select rownum rnum, bno, title, writer, updatedate, viewcnt from
+		(select * from tbl_board order by bno desc))
+		where rnum between #{startNum} and #{endNum}
+		]]>
+	</select>
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
