@@ -11,6 +11,7 @@ import kr.co.domain.MemberVO;
 @Controller
 public class TestController {
 	
+	
 	@RequestMapping("/e3")
 	public String e3(RedirectAttributes rttr, Model model) {
 		
@@ -53,12 +54,13 @@ public class TestController {
 	public void d(Model model) {
 		MemberVO vo = new MemberVO("m001", "john", 11);
 		model.addAttribute("vo", vo);
+		System.out.println("dddddddddddddddddddddddd");
 	}
 	
 	@RequestMapping("/c")
-	public void c(@ModelAttribute("msg") String msg) {
+	public void c(String result, Model model) {
 		System.out.println("c:::::::::::::::::::::::::::::::::::");
-		System.out.println(msg);
+		model.addAttribute("result", result);
 	}
 	
 	@RequestMapping("/b")
@@ -67,7 +69,7 @@ public class TestController {
 		System.out.println(msg);
 		System.out.println(age);
 		model.addAttribute("msg",msg);
-		model.addAttribute(age);
+		model.addAttribute("age",age);
 	}
 	
 	@RequestMapping("/a")
